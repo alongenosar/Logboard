@@ -146,11 +146,11 @@ class NetSocket: NSObject {
         runloop = .current
 
         inputStream.delegate = self
-        inputStream.schedule(in: runloop!, forMode: RunLoop.Mode.default)
+        inputStream.schedule(in: runloop!, forMode: RunLoop.Mode.defaultRunLoopMode)
         inputStream.setProperty(securityLevel.rawValue, forKey: .socketSecurityLevelKey)
 
         outputStream.delegate = self
-        outputStream.schedule(in: runloop!, forMode: RunLoop.Mode.default)
+        outputStream.schedule(in: runloop!, forMode: RunLoop.Mode.defaultRunLoopMode)
         outputStream.setProperty(securityLevel.rawValue, forKey: .socketSecurityLevelKey)
 
         inputStream.open()
@@ -171,11 +171,11 @@ class NetSocket: NSObject {
 
     func deinitConnection(isDisconnected: Bool) {
         inputStream?.close()
-        inputStream?.remove(from: runloop!, forMode: RunLoop.Mode.default)
+        inputStream?.remove(from: runloop!, forMode: RunLoop.Mode.defaultRunLoopMode)
         inputStream?.delegate = nil
         inputStream = nil
         outputStream?.close()
-        outputStream?.remove(from: runloop!, forMode: RunLoop.Mode.default)
+        outputStream?.remove(from: runloop!, forMode: RunLoop.Mode.defaultRunLoopMode)
         outputStream?.delegate = nil
         outputStream = nil
         buffer?.deinitialize(count: windowSizeC)
